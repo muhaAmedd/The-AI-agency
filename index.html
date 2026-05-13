@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The A.I. Agency - Responsive WebGL</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&family=Playfair+Display:ital,wght@0,400;1,600&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Hide default cursor ONLY on desktop */
+        @media (pointer: fine) { * { cursor: none; } }
+        
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+
+        body.locked { overflow: hidden; }
+
+        body { 
+            margin: 0; overflow-x: hidden; 
+            background: radial-gradient(circle at 50% 50%, #00076f 0%, #010105 100%);
+            font-family: 'Montserrat', sans-serif; color: #ffe4f2; -webkit-font-smoothing: antialiased;
+        }
+
+        .noise {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 999; opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Custom Cursor styling */
+        .cursor-dot { position: fixed; top: 0; left: 0; width: 8px; height: 8px; background-color: #e54ed0; border-radius: 50%; pointer-events: none; z-index: 1000; transform: translate(-50%, -50%); }
+        .cursor-outline { position: fixed; top: 0; left: 0; width: 40px; height: 40px; border: 1px solid rgba(255, 228, 242, 0.5); border-radius: 50%; pointer-events: none; z-index: 999; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s, border-color 0.2s; }
+        a, button { pointer-events: auto; }
+        a:hover ~ .cursor-outline, button:hover ~ .cursor-outline { width: 60px; height: 60px; border-color: #e54ed0; background: rgba(229, 78, 208, 0.1); }
+
+        /* Hide custom cursor completely on mobile */
+        @media (max-width: 768px) {
+            .cursor-dot, .cursor-outline { display: none !important; }
+        }
+
+        #ui-layer { position: relative; z-index: 2; pointer-events: none; opacity: 0; }
+        canvas { position: fixed; top: 0; left: 0; z-index: 1; }
+        
+        header { position: fixed; top: 0; left: 0; width: 100%; padding: 40px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 10; mix-blend-mode: difference; }
+        .logo { font-size: 1.2rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; }
+        nav a { color: #ffe4f2; text-decoration: none; margin-left: 40px; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+
+        section { height: 100vh; display: flex; align-items: center; padding: 0 8%; position: relative; }
+        .spacer { height: 50vh; }
+
+        .hero-text { max-width: 800px; padding-top: 10vh; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 5.5rem; font-weight: 400; line-height: 1; margin-bottom: 30px; font-style: italic; }
+        h1 span { font-family: 'Montserrat', sans-serif; font-weight: 600; font-style: normal; font-size: 5rem; letter-spacing: -2px; }
+        p.subtitle { font-size: 1rem; line-height: 1.8; margin-bottom: 40px; opacity: 0.7; max-width: 400px; letter-spacing: 1px; }
+
+        .work-right { justify-content: flex-end; }
+        .work-left { justify-content: flex-start; }
+        .work-text { max-width: 400px; }
+        .work-right .work-text { text-align: right; }
+        .work-text h2 { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 400; margin-bottom: 15px; }
+        .tag { display: inline-block; padding: 6px 16px; border: 1px solid #e54ed0; color: #e54ed0; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; border-radius: 30px; }
+
+        .footer-space { height: 50vh; }
+
+        /* --- MOBILE CSS OVERRIDES --- */
+        @media (max-width: 768px) {
+            header { padding: 20px 5%; flex-direction: column; gap: 15px; }
+            nav a { margin-left: 15px; margin-right: 15px; }
+            
+            .hero-text { padding-top: 5vh; text-align: center; display: flex; flex-direction: column; align-items: center; }
+            h1 { font-size: 3.5rem; margin-bottom: 20px; }
+            h1 span { font-size: 3rem; }
+            p.subtitle { text-align: center; }
+
+            .work-right, .work-left { justify-content: center; text-align: center; }
+            .work-right .work-text, .work-left .work-text { text-align: center; background: rgba(0, 7, 111, 0.4); padding: 30px; border-radius: 15px; backdrop-filter: blur(10px); }
+            .work-text h2 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body class="locked">
+
+    <video id="vid-tawoos" src="./tawoos.mp4" loop muted playsinline style="display:none;"></video>
+    <video id="vid-aerolase" src="./aerolase.mp4" loop muted playsinline style="display:none;"></video>
+
+    <div class="noise"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <div id="ui-layer">
+        <header id="main-header">
+            <div class="logo">The A.I. Agency</div>
+            <nav>
+                <a href="#work">Work</a>
+                <a href="#services">Services</a>
+            </nav>
+        </header>
+
+        <section class="hero" id="hero">
+            <div class="hero-text">
+                <h1 class="hero-title">Elegance.<br>Trust.<br><span>CONVERSION.</span></h1>
+                <p class="subtitle hero-sub">For over 7 years, we have positioned medical brands as icons of beauty and innovation across the MENA region.</p>
+            </div>
+        </section>
+
+        <div class="spacer"></div>
+
+        <section class="work-right">
+            <div class="work-text case-1">
+                <div class="tag">Digital Strategy</div>
+                <h2>Tawoos Clinic</h2>
+                <p class="subtitle">Achieved a 45% growth in social media engagement within six months, positioning them as a premier dermatological destination.</p>
+            </div>
+        </section>
+
+        <div class="spacer"></div>
+
+        <section class="work-left">
+            <div class="work-text case-2">
+                <div class="tag">Localized B2B</div>
+                <h2>Aerolase MENA</h2>
+                <p class="subtitle">Created localized campaigns for Arab women, leading to a 65% increase in organic impressions and direct clinic inquiries.</p>
+            </div>
+        </section>
+        
+        <div class="footer-space"></div>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+        // --- DEVICE DETECTION ---
+        let isMobile = window.innerWidth <= 768;
+
+        // --- CUSTOM CURSOR (Disabled logic for mobile) ---
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2; 
+        let outlineX = mouseX, outlineY = mouseY;
+
+        if (!isMobile) {
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX; mouseY = e.clientY;
+                cursorDot.style.left = `${mouseX}px`; cursorDot.style.top = `${mouseY}px`;
+            });
+            function animateCursor() {
+                outlineX += (mouseX - outlineX) * 0.15;
+                outlineY += (mouseY - outlineY) * 0.15;
+                cursorOutline.style.left = `${outlineX}px`; cursorOutline.style.top = `${outlineY}px`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+        }
+
+        // --- LENIS SMOOTH SCROLL ---
+        const lenis = new Lenis({ 
+            duration: 1.5, 
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+            smooth: true,
+            smoothTouch: false // Native iOS/Android touch scrolling is already perfectly smooth
+        });
+        
+        // --- THREE.JS SETUP ---
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2('#00076f', 0.04);
+
+        // Set FOV wider for mobile so the model fits on screen
+        const fov = isMobile ? 65 : 45;
+        const camera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 0, 5);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        renderer.toneMapping = THREE.ACESFilmicToneMapping; 
+        document.body.appendChild(renderer.domElement);
+
+        const pmremGenerator = new THREE.PMREMGenerator(renderer);
+        scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
+
+        const worldGroup = new THREE.Group();
+        scene.add(worldGroup);
+
+        const pinkLight = new THREE.PointLight('#e54ed0', 0, 15); worldGroup.add(pinkLight);
+        const purpleLight = new THREE.PointLight('#9f45b0', 0, 15); worldGroup.add(purpleLight);
+
+        const glassMaterial = new THREE.MeshPhysicalMaterial({
+            color: 0x020205, metalness: 0.2, roughness: 0.1, transmission: 1.0, 
+            ior: 1.5, thickness: 2.0, clearcoat: 1.0, envMapIntensity: 2.0
+        });
+
+        const loader = new GLTFLoader();
+        let faceModel; 
+        
+        loader.load('./tmpbpapeotw.glb', function (gltf) {
+            faceModel = gltf.scene;
+            faceModel.traverse((child) => { if (child.isMesh) child.material = glassMaterial; });
+
+            const box = new THREE.Box3().setFromObject(faceModel);
+            const center = box.getCenter(new THREE.Vector3());
+            faceModel.position.sub(center); 
+            
+            // Starting position logic
+            faceModel.position.set(0, 0, 1.5); 
+            faceModel.scale.set(2.2, 2.2, 2.2); 
+            faceModel.rotation.set(0.5, -Math.PI / 1.5, 0); 
+            
+            worldGroup.add(faceModel);
+            playEntranceSequence();
+        });
+
+        const createVideoScreen = (id, x, y, z, rotY) => {
+            const video = document.getElementById(id);
+            video.play().catch(e => console.log("Video autoplay wait"));
+            const texture = new THREE.VideoTexture(video);
+            texture.colorSpace = THREE.SRGBColorSpace;
+            const material = new THREE.MeshBasicMaterial({ map: texture, toneMapped: false });
+            
+            // Make screens slightly smaller for mobile
+            const screenScale = isMobile ? 0.7 : 1;
+            const geometry = new THREE.PlaneGeometry(5 * screenScale, 2.81 * screenScale);
+            const mesh = new THREE.Mesh(geometry, material);
+            
+            // Center the screens entirely if on mobile
+            const finalX = isMobile ? 0 : x;
+            mesh.position.set(finalX, y, z);
+            mesh.rotation.y = isMobile ? 0 : rotY; // Flatten rotation for mobile viewing
+            worldGroup.add(mesh);
+        };
+
+        // Screen placements (Mobile math handled inside the function)
+        createVideoScreen('vid-tawoos', -2.5, 0, -12, Math.PI / 8);
+        createVideoScreen('vid-aerolase', 2.5, 0, -26, -Math.PI / 8);
+
+        // --- ENTRANCE SEQUENCE ---
+        function playEntranceSequence() {
+            const introTl = gsap.timeline({
+                onComplete: () => {
+                    document.body.classList.remove('locked'); 
+                    initScrollAnimations(); 
+                }
+            });
+
+            introTl.to(pinkLight, { keyframes: { intensity: [0, 100, 20, 120, 60] }, duration: 1.2 }, 0);
+            introTl.to(purpleLight, { keyframes: { intensity: [0, 80, 10, 100, 60] }, duration: 1.2 }, 0.2);
+
+            // Responsive landing position
+            const targetX = isMobile ? 0 : 1.8;
+            const targetScale = isMobile ? 1.0 : 1.4;
+
+            introTl.to(faceModel.position, { x: targetX, y: 0, z: 0, duration: 2.5, ease: "power3.inOut" }, 1.2);
+            introTl.to(faceModel.scale, { x: targetScale, y: targetScale, z: targetScale, duration: 2.5, ease: "power3.inOut" }, 1.2);
+            introTl.to(faceModel.rotation, { x: 0, y: 0, z: 0, duration: 2.5, ease: "power3.inOut" }, 1.2);
+
+            introTl.to('#ui-layer', { opacity: 1, duration: 1.5, ease: "power2.inOut" }, 2.5);
+            introTl.from('.hero-title', { y: 50, opacity: 0, duration: 1.5, ease: "power3.out" }, 2.7);
+            introTl.from('.hero-sub', { y: 30, opacity: 0, duration: 1.5, ease: "power3.out" }, 2.9);
+        }
+
+        // --- RENDER LOOP ---
+        const clock = new THREE.Clock();
+        function render3D(time) {
+            lenis.raf(time * 1000); 
+            const elapsed = clock.getElapsedTime();
+
+            // Light tracking (Centers lights on mobile, follows mouse on desktop)
+            const normX = isMobile ? 0 : (mouseX / window.innerWidth) * 2 - 1;
+            const normY = isMobile ? 0 : -(mouseY / window.innerHeight) * 2 + 1;
+
+            pinkLight.position.x += (normX * 3 - pinkLight.position.x) * 0.05;
+            pinkLight.position.y += (normY * 3 - pinkLight.position.y) * 0.05;
+            pinkLight.position.z = 2; 
+
+            purpleLight.position.x += (-normX * 3 - purpleLight.position.x) * 0.05;
+            purpleLight.position.y += (-normY * 3 - purpleLight.position.y) * 0.05;
+            purpleLight.position.z = 2;
+
+            if(faceModel && !document.body.classList.contains('locked')) {
+                faceModel.position.y = Math.sin(elapsed * 2) * 0.05; 
+            }
+
+            renderer.render(scene, camera);
+        }
+        gsap.ticker.add(render3D); 
+        gsap.ticker.lagSmoothing(0);
+
+        // --- GSAP MATCHMEDIA SCROLL CHOREOGRAPHY ---
+        function initScrollAnimations() {
+            gsap.registerPlugin(ScrollTrigger);
+            lenis.on('scroll', ScrollTrigger.update);
+
+            let mm = gsap.matchMedia();
+
+            // DESKTOP ANIMATION (The Wide Screen Deep Dive)
+            mm.add("(min-width: 769px)", () => {
+                let tl = gsap.timeline({
+                    scrollTrigger: { trigger: '#ui-layer', start: "top top", end: "bottom bottom", scrub: 1.5 }
+                });
+                tl.to(worldGroup.position, { z: 28, ease: "none" }, 0);
+                tl.to(faceModel.rotation, { y: Math.PI * 1.5, x: 0.5, z: 0.2, ease: "power1.inOut" }, 0);
+            });
+
+            // MOBILE ANIMATION (The Vertical Deep Dive)
+            mm.add("(max-width: 768px)", () => {
+                let tlMobile = gsap.timeline({
+                    scrollTrigger: { trigger: '#ui-layer', start: "top top", end: "bottom bottom", scrub: 1.5 }
+                });
+                // Dive is faster on mobile due to shorter physical scroll distance
+                tlMobile.to(worldGroup.position, { z: 28, ease: "none" }, 0);
+                // Rotate straight up so it doesn't clip the edges of the narrow screen
+                tlMobile.to(faceModel.rotation, { x: -Math.PI / 4, y: Math.PI, z: 0, ease: "power1.inOut" }, 0);
+            });
+        }
+
+        // --- DYNAMIC RESIZE OBSERVER ---
+        window.addEventListener('resize', () => {
+            isMobile = window.innerWidth <= 768;
+            camera.aspect = window.innerWidth / window.innerHeight;
+            // Update FOV dynamically
+            camera.fov = isMobile ? 65 : 45;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
