@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Marketing — The AI Agency</title>
+    <meta name="description" content="We don't run ads. We scale revenue. Data-driven performance marketing and media buying for medical and luxury brands — The AI Agency.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,400;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/performance-marketing.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+
+<body class="pm-body">
+
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+    <div id="cursor-ring">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="cursorGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#44008b" />
+                    <stop offset="100%" stop-color="#e54ed0" />
+                </linearGradient>
+            </defs>
+            <polygon class="cursor-hex-outer" points="30,5 53,18 53,42 30,55 7,42 7,18" fill="none" stroke="url(#cursorGrad)" stroke-width="1.5" />
+            <polygon class="cursor-hex-inner" points="30,12 45,21 45,39 30,48 15,39 15,21" fill="none" stroke="url(#cursorGrad)" stroke-width="1" opacity="0.6" />
+        </svg>
+    </div>
+
+    <!-- Noise -->
+    <div id="noise"></div>
+
+    <!-- —"?—"? HEADER —"?—"? -->
+    <header id="site-header">
+        <a href="../index.html" class="brand" style="text-decoration:none;">
+            <div class="brand-logo">
+                <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#44008b" />
+                            <stop offset="100%" stop-color="#e54ed0" />
+                        </linearGradient>
+                    </defs>
+                    <polygon points="30,5 53,18 53,42 30,55 7,42 7,18" fill="none" stroke="url(#lg1)" stroke-width="1.5" />
+                    <polygon points="30,12 45,21 45,39 30,48 15,39 15,21" fill="none" stroke="url(#lg1)" stroke-width="1" opacity="0.6" />
+                    <circle cx="30" cy="30" r="3" fill="#e54ed0" />
+                </svg>
+            </div>
+            <div class="brand-name">THE AI AGENCY</div>
+        </a>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="../index.html#who-we-are">Who We Are</a>
+            <div class="nav-dropdown">
+                <a href="../index.html#services" class="nav-dropdown-toggle">Services <span class="nav-arrow">▼</span></a>
+                <div class="nav-dropdown-menu">
+                    <a href="media-production.html">Media Production</a>
+                    <a href="performance-marketing.html">Performance Marketing</a>
+                    <a href="social-media.html">Content Creation & Moderation</a>
+                    <a href="ai-automation.html">AI Automation</a>
+                    <a href="medical-documentation.html">Medical Documentation</a>
+                </div>
+            </div>
+            <a href="../index.html#contact" class="nav-cta">Contact</a>
+        </nav>
+    </header>
+
+    <!-- ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—
+         SECTION 1 — HERO
+    ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═— -->
+    <section class="pm-hero" id="pm-hero">
+        <div class="pm-hero-bg">
+            <div class="pm-hero-bg-img" style="background-image: url('../assets/Images/Services/PRMAR-banner.png');"></div>
+            <div class="pm-hero-overlay"></div>
+        </div>
+
+        <div class="pm-hero-content" id="pm-hero-content">
+            <div class="pm-section-eyebrow" id="pm-eyebrow">
+                <span class="pm-eyebrow-dot"></span>
+                Media Buying · Performance
+            </div>
+            <p class="pm-hero-kicker">If it doesn't convert, it doesn't run.</p>
+            <h1 class="pm-hero-h1" id="pm-hero-h1">
+                <span class="pm-h1-line">We don't run ads.</span>
+                <span class="pm-h1-line pm-h1-accent">We scale revenue.</span>
+            </h1>
+            <div class="pm-hero-actions" id="pm-hero-actions">
+                <a href="#pm-breakdown" class="pm-btn-primary">See Results</a>
+                <a href="../index.html#contact" class="pm-btn-ghost">Audit My Ads <span>→</span></a>
+            </div>
+        </div>
+
+        <div class="pm-scroll-indicator" id="pm-scroll-ind">
+            <div class="pm-scroll-line"></div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—
+         SECTION 2 — NUMBERS (IMPACT FIRST)
+    ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═— -->
+    <section class="pm-numbers" id="pm-numbers">
+        <div class="pm-numbers-inner">
+            <div class="pm-numbers-grid">
+                <div class="pm-number-card" data-pm-reveal>
+                    <div class="pm-num-val" data-target="2000" data-prefix="+" data-suffix="">+2000</div>
+                    <div class="pm-num-label">Leads Generated</div>
+                </div>
+                <div class="pm-number-card pm-card-featured" data-pm-reveal>
+                    <div class="pm-num-val" data-target="1" data-prefix="+" data-suffix="M">1M</div>
+                    <div class="pm-num-label">EGP Revenue Driven</div>
+                </div>
+                <div class="pm-number-card" data-pm-reveal>
+                    <div class="pm-num-val">5X-10X</div>
+                    <div class="pm-num-label">ROAS Campaigns</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—
+         SECTION 3 — CAMPAIGN BREAKDOWN
+    ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═— -->
+    <section class="pm-breakdown" id="pm-breakdown">
+        <div class="pm-breakdown-inner">
+            <div class="pm-breakdown-header">
+                <div class="pm-section-eyebrow">Campaign Breakdown</div>
+                <h2 class="pm-section-title">The anatomy of<br><span class="pm-title-grad">scaling.</span></h2>
+            </div>
+
+            <div class="pm-dashboards">
+                <!-- Campaign 1 -->
+                <div class="pm-dash-card" data-pm-reveal>
+                    <div class="pm-dash-header">
+                        <div class="pm-dash-title">Clinic Campaign</div>
+                        <div class="pm-dash-status"><span class="pm-status-dot"></span> Active</div>
+                    </div>
+                    <div class="pm-dash-body">
+                        <div class="pm-dash-metric">
+                            <span class="pm-dm-label">Total Leads</span>
+                            <span class="pm-dm-val pm-val-highlight">850+</span>
+                        </div>
+                        <div class="pm-dash-metric">
+                            <span class="pm-dm-label">Cost Per Lead</span>
+                            <span class="pm-dm-val">Optimized -30%</span>
+                        </div>
+                        <div class="pm-dash-metric">
+                            <span class="pm-dm-label">Revenue Generated</span>
+                            <span class="pm-dm-val pm-val-accent">Record High</span>
+                        </div>
+                    </div>
+                    <div class="pm-dash-chart">
+                        <svg viewBox="0 0 100 30" preserveAspectRatio="none">
+                            <path d="M0,30 L0,20 Q20,25 30,15 T60,10 T100,2 L100,30 Z" fill="url(#chartGrad1)" />
+                            <path d="M0,20 Q20,25 30,15 T60,10 T100,2" fill="none" stroke="var(--c4)" stroke-width="2" />
+                            <defs>
+                                <linearGradient id="chartGrad1" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="var(--c4)" stop-opacity="0.3" />
+                                    <stop offset="100%" stop-color="var(--bg)" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Campaign 2 -->
+                <div class="pm-dash-card pm-dash-center" data-pm-reveal>
+                    <div class="pm-dash-header">
+                        <div class="pm-dash-title">Course Campaign</div>
+                        <div class="pm-dash-status"><span class="pm-status-dot"></span> Active</div>
+                    </div>
+                    <div class="pm-dash-body">
+                        <div class="pm-dash-metric">
+                            <span class="pm-dm-label">Registrations</span>
+                            <span class="pm-dm-val pm-val-highlight">1,200+</span>
+                        </div>
+                        <div class="pm-dash-metric">
+                            <span class="pm-dm-label">ROAS (Return on Ad Spend)</span>
+                            <span class="pm-dm-val pm-val-accent">6.5X</span>
+                        </div>
+                    </div>
+                    <div class="pm-dash-chart">
+                        <svg viewBox="0 0 100 30" preserveAspectRatio="none">
+                            <path d="M0,30 L0,25 Q15,28 25,20 T50,15 T80,5 T100,0 L100,30 Z" fill="url(#chartGrad2)" />
+                            <path d="M0,25 Q15,28 25,20 T50,15 T80,5 T100,0" fill="none" stroke="var(--c3)" stroke-width="2" />
+                            <defs>
+                                <linearGradient id="chartGrad2" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="var(--c3)" stop-opacity="0.3" />
+                                    <stop offset="100%" stop-color="var(--bg)" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Campaign 3 -->
+                <div class="pm-dash-card" data-pm-reveal>
+                    <div class="pm-dash-header">
+                        <div class="pm-dash-title">Product Campaign</div>
+                        <div class="pm-dash-status"><span class="pm-status-dot"></span> Active</div>
+                    </div>
+                    <div class="pm-dash-body">
+                        <div class="pm-dash-metric">
+                            <span class="pm-dm-label">Conversions</span>
+                            <span class="pm-dm-val pm-val-highlight">3,500+</span>
+                        </div>
+                        <div class="pm-dash-metric">
+                            <span class="pm-dm-label">Scaling Status</span>
+                            <span class="pm-dm-val pm-val-accent">Aggressive</span>
+                        </div>
+                    </div>
+                    <div class="pm-dash-chart">
+                        <svg viewBox="0 0 100 30" preserveAspectRatio="none">
+                            <path d="M0,30 L0,28 Q10,25 20,22 T40,18 T70,8 T100,1 L100,30 Z" fill="url(#chartGrad3)" />
+                            <path d="M0,28 Q10,25 20,22 T40,18 T70,8 T100,1" fill="none" stroke="#7e22ce" stroke-width="2" />
+                            <defs>
+                                <linearGradient id="chartGrad3" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#7e22ce" stop-opacity="0.3" />
+                                    <stop offset="100%" stop-color="var(--bg)" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—
+         SECTION 4 — HOW WE DO IT
+    ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═— -->
+    <section class="pm-method" id="pm-method">
+        <div class="pm-method-inner">
+            <div class="pm-method-left">
+                <div class="pm-section-eyebrow">Our Methodology</div>
+                <h2 class="pm-section-title">The science of<br><span class="pm-title-grad">acquisition.</span></h2>
+            </div>
+            <div class="pm-method-right">
+                <div class="pm-method-grid">
+                    <div class="pm-method-item" data-pm-reveal>
+                        <div class="pm-mi-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                        </div>
+                        <h3 class="pm-mi-title">Targeting Strategy</h3>
+                        <p class="pm-mi-desc">Finding the exact audience that has the problem you solve, the desire you fulfill, and the purchasing power you need.</p>
+                    </div>
+                    <div class="pm-method-item" data-pm-reveal>
+                        <div class="pm-mi-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <h3 class="pm-mi-title">Creative Testing</h3>
+                        <p class="pm-mi-desc">We never rely on a single ad. We run rapid split tests to find the winning hooks, angles, and formats that lower your CPA.</p>
+                    </div>
+                    <div class="pm-method-item" data-pm-reveal>
+                        <div class="pm-mi-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                        </div>
+                        <h3 class="pm-mi-title">Funnel Optimization</h3>
+                        <p class="pm-mi-desc">Clicks mean nothing if they drop off. We plug the leaks in your funnel to ensure maximum conversion from impression to sale.</p>
+                    </div>
+                    <div class="pm-method-item" data-pm-reveal>
+                        <div class="pm-mi-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                        </div>
+                        <h3 class="pm-mi-title">Scaling Systems</h3>
+                        <p class="pm-mi-desc">Once a campaign proves profitable, we aggressively scale spend while maintaining margin to multiply your revenue.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—
+         SECTION 5 — YOUR FUNNEL
+    ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═— -->
+    <section class="pm-funnel" id="pm-funnel">
+        <div class="pm-funnel-inner">
+            <div class="pm-funnel-header">
+                <div class="pm-section-eyebrow">Your Funnel</div>
+                <h2 class="pm-section-title">The Conversion<br><span class="pm-title-grad">Architecture</span></h2>
+            </div>
+
+            <div class="pm-funnel-visual">
+                <div class="pm-fv-step" data-pm-reveal>
+                    <div class="pm-fv-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <div class="pm-fv-label">Ad</div>
+                </div>
+                <div class="pm-fv-arrow" data-pm-reveal>→</div>
+                <div class="pm-fv-step" data-pm-reveal>
+                    <div class="pm-fv-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    </div>
+                    <div class="pm-fv-label">Landing Page</div>
+                </div>
+                <div class="pm-fv-arrow" data-pm-reveal>→</div>
+                <div class="pm-fv-step" data-pm-reveal>
+                    <div class="pm-fv-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <div class="pm-fv-label">Lead</div>
+                </div>
+                <div class="pm-fv-arrow" data-pm-reveal>→</div>
+                <div class="pm-fv-step pm-fv-highlight" data-pm-reveal>
+                    <div class="pm-fv-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    </div>
+                    <div class="pm-fv-label">Conversion</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—
+         SECTION 6 — TRUST
+    ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═— -->
+    <section class="pm-trust" id="pm-trust">
+        <div class="pm-trust-inner">
+            <div class="pm-trust-header">
+                <div class="pm-section-eyebrow">Our Guarantee</div>
+                <h2 class="pm-section-title">Zero Guesswork.<br><span class="pm-title-grad">Maximum Impact.</span></h2>
+            </div>
+            <div class="pm-trust-grid">
+                <div class="pm-trust-item" data-pm-reveal>
+                    <div class="pm-ti-check">✓</div>
+                    <div class="pm-ti-text">Data-driven decisions only</div>
+                </div>
+                <div class="pm-trust-item" data-pm-reveal>
+                    <div class="pm-ti-check">✓</div>
+                    <div class="pm-ti-text">No random boosting</div>
+                </div>
+                <div class="pm-trust-item" data-pm-reveal>
+                    <div class="pm-ti-check">✓</div>
+                    <div class="pm-ti-text">Clear ROI tracking</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—
+         SECTION 7 — CTA
+    ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═— -->
+    <section class="pm-cta" id="pm-cta">
+        <div class="pm-cta-glow"></div>
+        <div class="pm-cta-inner">
+            <h2 class="pm-cta-headline">Start scaling your<br><span class="pm-title-grad">campaigns.</span></h2>
+            <div class="pm-cta-actions">
+                <a href="../index.html#contact" class="pm-btn-primary pm-btn-large">Book a Strategy Call</a>
+                <a href="https://wa.me/201024706925" target="_blank" rel="noopener noreferrer" class="pm-btn-ghost">Chat on WhatsApp <span>→</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="site-footer-inner">
+            <div class="site-footer-top">
+                <div class="site-footer-left">
+                    <a href="../index.html" class="site-footer-brand">
+                        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+                            <polygon points="30,5 53,18 53,42 30,55 7,42 7,18" fill="none" stroke="var(--c3)" stroke-width="2"/>
+                            <circle cx="30" cy="30" r="4" fill="var(--c1)"/>
+                        </svg>
+                        THE AI AGENCY
+                    </a>
+                    <p class="site-footer-desc">
+                        Empowering businesses with advanced AI tools, custom automation, and high-converting media to scale operations and revenue.
+                    </p>
+                    <div class="site-footer-socials">
+                        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.603 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+                        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.325V1.325C24 .593 23.407 0 22.675 0z"/></svg></a>
+                    </div>
+                    <button class="site-footer-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+                        BACK TO TOP
+                    </button>
+                </div>
+                <div class="site-footer-nav">
+                    <div class="site-footer-col">
+                        <h4>Site Map</h4>
+                        <ul>
+                            <li><a href="../index.html">Homepage</a></li>
+                            <li><a href="../index.html#services">Services</a></li>
+                            <li><a href="ai-automation.html">AI Automation</a></li>
+                            <li><a href="media-production.html">Media Production</a></li>
+                            <li><a href="performance-marketing.html">Performance Marketing</a></li>
+                            <li><a href="social-media.html">Social Media Management</a></li>
+                            <li><a href="medical-documentation.html">Medical Documentation</a></li>
+                        </ul>
+                    </div>
+                    <div class="site-footer-col">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="site-footer-bottom">
+                <p>Copyright © 2026, The AI Agency, All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/javascript/performance-marketing.js"></script>
+    <script src="../assets/javascript/nav.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
