@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Production — The AI Agency</title>
+    <meta name="description" content="Cinematic-grade media production for medical and luxury brands. From concept to camera to conversion-driven visuals — The AI Agency.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,400;0,9..40,600;1,9..40,300&family=Outfit:wght@400;600;700&display=optional"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/media-production.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+</head>
+
+<body class="mp-body">
+
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+    <div id="cursor-ring">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="cursorGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#44008b" />
+                    <stop offset="100%" stop-color="#e54ed0" />
+                </linearGradient>
+            </defs>
+            <polygon class="cursor-hex-outer" points="30,5 53,18 53,42 30,55 7,42 7,18" fill="none"
+                stroke="url(#cursorGrad)" stroke-width="1.5" />
+            <polygon class="cursor-hex-inner" points="30,12 45,21 45,39 30,48 15,39 15,21" fill="none"
+                stroke="url(#cursorGrad)" stroke-width="1" opacity="0.6" />
+        </svg>
+    </div>
+
+    <!-- Noise -->
+    <div id="noise"></div>
+
+    <!-- HEADER -->
+    <header id="site-header">
+        <a href="../index.html" class="brand" style="text-decoration:none;">
+            <div class="brand-logo">
+                <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#44008b" />
+                            <stop offset="100%" stop-color="#e54ed0" />
+                        </linearGradient>
+                    </defs>
+                    <polygon points="30,5 53,18 53,42 30,55 7,42 7,18" fill="none" stroke="url(#lg1)"
+                        stroke-width="1.5" />
+                    <polygon points="30,12 45,21 45,39 30,48 15,39 15,21" fill="none" stroke="url(#lg1)"
+                        stroke-width="1" opacity="0.6" />
+                    <circle cx="30" cy="30" r="3" fill="#e54ed0" />
+                </svg>
+            </div>
+            <div class="brand-name">THE AI AGENCY</div>
+        </a>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="../index.html#who-we-are">Who We Are</a>
+            <div class="nav-dropdown">
+                <a href="../index.html#services" class="nav-dropdown-toggle">Services <span class="nav-arrow">▼</span></a>
+                <div class="nav-dropdown-menu">
+                    <a href="media-production.html">Media Production</a>
+                    <a href="performance-marketing.html">Performance Marketing</a>
+                    <a href="social-media.html">Content Creation & Moderation</a>
+                    <a href="ai-automation.html">AI Automation</a>
+                    <a href="medical-documentation.html">Medical Documentation</a>
+                </div>
+            </div>
+            <a href="../index.html#contact" class="nav-cta">Contact</a>
+        </nav>
+    </header>
+
+    <!-- ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—
+         SECTION 1 — HERO
+    ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═— -->
+    <section class="mp-hero" id="mp-hero">
+        <!-- Video background reel -->
+        <div class="mp-hero-video-wrap">
+            <video class="mp-hero-video" data-hero-video src="../assets/videos/aerolase.mp4" preload="metadata" muted playsinline></video>
+            <div class="mp-hero-overlay"></div>
+        </div>
+
+        <!-- Grain texture -->
+        <div class="mp-hero-grain"></div>
+
+        <!-- Main headline -->
+        <div class="mp-hero-content" id="mp-hero-content">
+            <div class="mp-hero-eyebrow" id="mp-eyebrow">
+                Media Production Service
+            </div>
+            <h1 class="mp-hero-h1" id="mp-hero-h1">
+                <span class="mp-h1-line">We don't shoot</span>
+                <span class="mp-h1-line mp-h1-accent">content.</span>
+                <span class="mp-h1-line">We create</span>
+                <span class="mp-h1-line mp-h1-outline">attention.</span>
+            </h1>
+            <p class="mp-hero-sub" id="mp-hero-sub">
+                From concept to camera to conversion-driven visuals.
+            </p>
+            <div class="mp-hero-actions" id="mp-hero-actions">
+                <a href="#mp-campaigns" class="mp-btn-primary">See Our Work</a>
+                <a href="../index.html#contact" class="mp-btn-ghost">Start a Campaign <span>→</span></a>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="mp-scroll-indicator" id="mp-scroll-ind">
+            <div class="mp-scroll-line"></div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—
+         SECTION 2 — WHAT WE DO
+    ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═— -->
+    <section class="mp-whatwedo" id="mp-whatwedo">
+        <div class="mp-whatwedo-inner">
+
+            <div class="mp-whatwedo-left">
+                <div class="mp-section-eyebrow">What We Do</div>
+                <h2 class="mp-section-title">Every frame is built<br>to <em>perform</em> —<br>not just look good.</h2>
+            </div>
+
+            <div class="mp-whatwedo-right">
+                <p class="mp-whatwedo-intro">
+                    We create what people actually <strong>watch</strong>. In a world of infinite scrolling,
+                    we engineer visual content that stops thumbs, builds trust, and drives action.
+                </p>
+
+                <div class="mp-pillars">
+                    <div class="mp-pillar" data-mp-reveal>
+                        <div class="mp-pillar-icon">
+                            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="20" cy="20" r="18" stroke="url(#pGrad1)" stroke-width="1.5"/>
+                                <path d="M15 14l12 6-12 6V14z" fill="#e54ed0"/>
+                                <defs><linearGradient id="pGrad1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#44008b"/><stop offset="100%" stop-color="#e54ed0"/></linearGradient></defs>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="mp-pillar-title">Cinematic Production</h3>
+                            <p class="mp-pillar-desc">Studio-grade shoots with a director's eye — not just a camera operator.</p>
+                        </div>
+                    </div>
+                    <div class="mp-pillar" data-mp-reveal>
+                        <div class="mp-pillar-icon">
+                            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="4" y="8" width="32" height="24" rx="3" stroke="url(#pGrad2)" stroke-width="1.5"/>
+                                <path d="M14 16h12M14 20h8M14 24h10" stroke="#e54ed0" stroke-width="1.2" stroke-linecap="round"/>
+                                <defs><linearGradient id="pGrad2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#44008b"/><stop offset="100%" stop-color="#e54ed0"/></linearGradient></defs>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="mp-pillar-title">Script & Concept</h3>
+                            <p class="mp-pillar-desc">Every video begins with a story engineered to convert, not just impress.</p>
+                        </div>
+                    </div>
+                    <div class="mp-pillar" data-mp-reveal>
+                        <div class="mp-pillar-icon">
+                            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 34L14 20l8 8 6-10 6 16H6z" stroke="url(#pGrad3)" stroke-width="1.5" stroke-linejoin="round"/>
+                                <defs><linearGradient id="pGrad3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#44008b"/><stop offset="100%" stop-color="#e54ed0"/></linearGradient></defs>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="mp-pillar-title">Performance Editing</h3>
+                            <p class="mp-pillar-desc">Editing paced for engagement — built for the platform, the audience, and the goal.</p>
+                        </div>
+                    </div>
+                    <div class="mp-pillar" data-mp-reveal>
+                        <div class="mp-pillar-icon">
+                            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="20" cy="14" r="6" stroke="url(#pGrad4)" stroke-width="1.5"/>
+                                <path d="M8 34c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="url(#pGrad4)" stroke-width="1.5" stroke-linecap="round"/>
+                                <defs><linearGradient id="pGrad4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#44008b"/><stop offset="100%" stop-color="#e54ed0"/></linearGradient></defs>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="mp-pillar-title">Audience Psychology</h3>
+                            <p class="mp-pillar-desc">We don't guess what works — we research it, then build it precisely.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—
+         SECTION 3 — FEATURED CAMPAIGNS
+    ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═— -->
+    <section class="mp-campaigns" id="mp-campaigns">
+        <div class="mp-campaigns-header">
+            <div class="mp-section-eyebrow">Featured Campaigns</div>
+            <h2 class="mp-section-title mp-campaigns-title">This is your<br><span class="mp-title-grad">main selling point.</span></h2>
+            <p class="mp-campaigns-sub">Real brands. Real results. Real attention.</p>
+        </div>
+
+        <!-- Campaign 1 — RedCell -->
+        <div class="mp-campaign mp-campaign--left" id="mp-campaign-1" data-mp-reveal>
+            <div class="mp-campaign-media">
+                <div class="mp-campaign-video-frame">
+                    <video data-src="../assets/videos/aerolase.mp4" preload="none" muted playsinline class="mp-campaign-video"></video>
+                    <div class="mp-campaign-video-overlay">
+                        <button class="mp-play-btn" aria-label="Play video">
+                            <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="30" cy="30" r="29" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                                <path d="M25 20l16 10-16 10V20z" fill="#ffffff"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mp-campaign-label">Campaign 01</div>
+                </div>
+            </div>
+            <div class="mp-campaign-content">
+                <div class="mp-campaign-tag">Brand Launch</div>
+                <h3 class="mp-campaign-headline">Launching a brand<br>from zero to attention</h3>
+                <p class="mp-campaign-copy">
+                    RedCell came to us as a concept. They left as a visual identity that commands
+                    presence. We built a full cinematic launch campaign — from brand narrative
+                    to final cut — engineered to break through a saturated market.
+                </p>
+                <div class="mp-campaign-metrics">
+                    <div class="mp-metric">
+                        <span class="mp-metric-num">3.2M</span>
+                        <span class="mp-metric-label">Impressions</span>
+                    </div>
+                    <div class="mp-metric">
+                        <span class="mp-metric-num">→ 4x</span>
+                        <span class="mp-metric-label">Brand Recall</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campaign 2 — Elysee -->
+        <div class="mp-campaign mp-campaign--right" id="mp-campaign-2" data-mp-reveal>
+            <div class="mp-campaign-media">
+                <div class="mp-campaign-video-frame">
+                    <video data-src="../assets/videos/tawoos.mp4" preload="none" muted playsinline class="mp-campaign-video"></video>
+                    <div class="mp-campaign-video-overlay">
+                        <button class="mp-play-btn" aria-label="Play video">
+                            <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="30" cy="30" r="29" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                                <path d="M25 20l16 10-16 10V20z" fill="#ffffff"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mp-campaign-label">Campaign 02</div>
+                </div>
+            </div>
+            <div class="mp-campaign-content">
+                <div class="mp-campaign-tag">Medical Storytelling</div>
+                <h3 class="mp-campaign-headline">Turning science<br>into storytelling</h3>
+                <p class="mp-campaign-copy">
+                    We simplified complex medical concepts into content people trust. Elysee needed
+                    to communicate clinical authority without losing human warmth — we delivered both
+                    through layered visual storytelling and precision-written scripts.
+                </p>
+                <div class="mp-campaign-metrics">
+                    <div class="mp-metric">
+                        <span class="mp-metric-num">89%</span>
+                        <span class="mp-metric-label">Watch Rate</span>
+                    </div>
+                    <div class="mp-metric">
+                        <span class="mp-metric-num">2.8x</span>
+                        <span class="mp-metric-label">Conversion Lift</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campaign 3 — Debeaute -->
+        <div class="mp-campaign mp-campaign--left" id="mp-campaign-3" data-mp-reveal>
+            <div class="mp-campaign-media">
+                <div class="mp-campaign-video-frame">
+                    <video data-src="../assets/videos/video3.mp4" preload="none" muted playsinline class="mp-campaign-video"></video>
+                    <div class="mp-campaign-video-overlay">
+                        <button class="mp-play-btn" aria-label="Play video">
+                            <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="30" cy="30" r="29" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                                <path d="M25 20l16 10-16 10V20z" fill="#ffffff"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mp-campaign-label">Campaign 03</div>
+                </div>
+            </div>
+            <div class="mp-campaign-content">
+                <div class="mp-campaign-tag">Luxury · Clinic · Product</div>
+                <h3 class="mp-campaign-headline">Where luxury<br>meets precision</h3>
+                <p class="mp-campaign-copy">
+                    Debeauté operates at the intersection of luxury aesthetics and clinical trust.
+                    We crafted a campaign that speaks to elite clientele — refined visuals,
+                    measured pacing, and a narrative that makes every viewer feel the brand is
+                    designed exclusively for them.
+                </p>
+                <div class="mp-campaign-metrics">
+                    <div class="mp-metric">
+                        <span class="mp-metric-num">Premium</span>
+                        <span class="mp-metric-label">Positioning</span>
+                    </div>
+                    <div class="mp-metric">
+                        <span class="mp-metric-num">→ 60%</span>
+                        <span class="mp-metric-label">Booking Rate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—
+         SECTION 4 — HOW WE WORK (Timeline)
+    ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═— -->
+    <section class="mp-process" id="mp-process">
+        <div class="mp-process-inner">
+            <div class="mp-process-header">
+                <div class="mp-section-eyebrow">Our Process</div>
+                <h2 class="mp-section-title">We don't guess.<br>We <span class="mp-title-grad">engineer content.</span></h2>
+            </div>
+
+            <div class="mp-timeline">
+
+                <div class="mp-timeline-line"></div>
+
+                <div class="mp-timeline-step" data-step="1" data-mp-reveal>
+                    <div class="mp-step-number">01</div>
+                    <div class="mp-step-content">
+                        <div class="mp-step-icon-wrap">
+                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24 6C14.06 6 6 14.06 6 24s8.06 18 18 18 18-8.06 18-18S33.94 6 24 6z" stroke="url(#sGrad1)" stroke-width="1.5"/>
+                                <path d="M24 14v10l6 4" stroke="#e54ed0" stroke-width="1.5" stroke-linecap="round"/>
+                                <defs><linearGradient id="sGrad1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#44008b"/><stop offset="100%" stop-color="#e54ed0"/></linearGradient></defs>
+                            </svg>
+                        </div>
+                        <h3 class="mp-step-title">Concept</h3>
+                        <p class="mp-step-desc">We begin with your audience — who they are, what moves them, and how your brand earns their trust in seconds.</p>
+                    </div>
+                </div>
+
+                <div class="mp-timeline-step" data-step="2" data-mp-reveal>
+                    <div class="mp-step-number">02</div>
+                    <div class="mp-step-content">
+                        <div class="mp-step-icon-wrap">
+                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="8" y="10" width="32" height="28" rx="4" stroke="url(#sGrad2)" stroke-width="1.5"/>
+                                <path d="M14 18h20M14 24h14M14 30h10" stroke="#e54ed0" stroke-width="1.2" stroke-linecap="round"/>
+                                <defs><linearGradient id="sGrad2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#44008b"/><stop offset="100%" stop-color="#e54ed0"/></linearGradient></defs>
+                            </svg>
+                        </div>
+                        <h3 class="mp-step-title">Script</h3>
+                        <p class="mp-step-desc">Every word is placed with intention. We write scripts that guide emotion and drive action — from the first frame to the last.</p>
+                    </div>
+                </div>
+
+                <div class="mp-timeline-step" data-step="3" data-mp-reveal>
+                    <div class="mp-step-number">03</div>
+                    <div class="mp-step-content">
+                        <div class="mp-step-icon-wrap">
+                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="24" cy="24" r="10" stroke="url(#sGrad3)" stroke-width="1.5"/>
+                                <path d="M24 8v4M24 36v4M8 24h4M36 24h4" stroke="#e54ed0" stroke-width="1.2" stroke-linecap="round"/>
+                                <circle cx="24" cy="24" r="3" fill="#e54ed0"/>
+                                <defs><linearGradient id="sGrad3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#44008b"/><stop offset="100%" stop-color="#e54ed0"/></linearGradient></defs>
+                            </svg>
+                        </div>
+                        <h3 class="mp-step-title">Production</h3>
+                        <p class="mp-step-desc">Cinematic-grade shoots executed with precision — lighting, angles, pacing. Every shot serves the story.</p>
+                    </div>
+                </div>
+
+                <div class="mp-timeline-step" data-step="4" data-mp-reveal>
+                    <div class="mp-step-number">04</div>
+                    <div class="mp-step-content">
+                        <div class="mp-step-icon-wrap">
+                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 38L14 24l10 8 8-14 10 20H6z" stroke="url(#sGrad4)" stroke-width="1.5" stroke-linejoin="round"/>
+                                <defs><linearGradient id="sGrad4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#44008b"/><stop offset="100%" stop-color="#e54ed0"/></linearGradient></defs>
+                            </svg>
+                        </div>
+                        <h3 class="mp-step-title">Editing</h3>
+                        <p class="mp-step-desc">Post-production where the magic lands. Color grading, sound design, motion graphics — all built for performance.</p>
+                    </div>
+                </div>
+
+                <div class="mp-timeline-step" data-step="5" data-mp-reveal>
+                    <div class="mp-step-number">05</div>
+                    <div class="mp-step-content">
+                        <div class="mp-step-icon-wrap">
+                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24 6l5 11 12 1.8-8.7 8.5 2 12L24 34l-10.3 5.3 2-12L7 18.8l12-1.8L24 6z" stroke="url(#sGrad5)" stroke-width="1.5" stroke-linejoin="round"/>
+                                <defs><linearGradient id="sGrad5" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#44008b"/><stop offset="100%" stop-color="#e54ed0"/></linearGradient></defs>
+                            </svg>
+                        </div>
+                        <h3 class="mp-step-title">Delivery</h3>
+                        <p class="mp-step-desc">Platform-optimized formats, formats ready to deploy — and a strategy for where and how to run them.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—
+         SECTION 5 — WHY US
+    ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═— -->
+    <section class="mp-whyus" id="mp-whyus">
+        <div class="mp-whyus-inner">
+            <div class="mp-whyus-header">
+                <div class="mp-section-eyebrow">Why Choose Us</div>
+                <h2 class="mp-section-title">Built different.<br><span class="mp-title-grad">By design.</span></h2>
+            </div>
+
+            <div class="mp-reasons">
+                <div class="mp-reason" data-mp-reveal>
+                    <div class="mp-reason-num">—</div>
+                    <div class="mp-reason-body">
+                        <h3 class="mp-reason-title">Content built for performance, not vanity</h3>
+                        <p class="mp-reason-desc">Pretty visuals that don't convert are a waste of budget. Every creative decision we make is tied to a measurable outcome.</p>
+                    </div>
+                </div>
+                <div class="mp-reason" data-mp-reveal>
+                    <div class="mp-reason-num">—</div>
+                    <div class="mp-reason-body">
+                        <h3 class="mp-reason-title">Healthcare &amp; beauty specialization</h3>
+                        <p class="mp-reason-desc">We understand the compliance, the trust factors, and the emotional triggers that make medical and luxury beauty content work at the highest level.</p>
+                    </div>
+                </div>
+                <div class="mp-reason" data-mp-reveal>
+                    <div class="mp-reason-num">—</div>
+                    <div class="mp-reason-body">
+                        <h3 class="mp-reason-title">Audience psychology driven</h3>
+                        <p class="mp-reason-desc">We don't just know your brand — we know your patient. What they fear, what they aspire to, and what finally makes them book.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating stat cards -->
+            <div class="mp-whyus-stats">
+                <div class="mp-stat-card" data-mp-reveal>
+                    <div class="mp-stat-num">7+</div>
+                    <div class="mp-stat-label">Years of Production</div>
+                </div>
+                <div class="mp-stat-card" data-mp-reveal>
+                    <div class="mp-stat-num">200+</div>
+                    <div class="mp-stat-label">Videos Delivered</div>
+                </div>
+                <div class="mp-stat-card" data-mp-reveal>
+                    <div class="mp-stat-num">MENA</div>
+                    <div class="mp-stat-label">Regional Coverage</div>
+                </div>
+                <div class="mp-stat-card" data-mp-reveal>
+                    <div class="mp-stat-num">3x</div>
+                    <div class="mp-stat-label">Avg. Engagement Lift</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—
+         SECTION 6 — CTA
+    ═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═—═— -->
+    <section class="mp-cta" id="mp-cta">
+        <div class="mp-cta-glow"></div>
+        <div class="mp-cta-inner">
+            <div class="mp-section-eyebrow">Ready to create?</div>
+            <h2 class="mp-cta-headline">Let's create your<br><span class="mp-title-grad">next campaign.</span></h2>
+            <p class="mp-cta-sub">We take on a limited number of new productions each quarter — let's talk before your slot fills.</p>
+            <div class="mp-cta-actions">
+                <a href="../index.html#contact" class="mp-btn-primary mp-btn-large">Start the Conversation</a>
+                <a href="https://wa.me/201024706925" target="_blank" rel="noopener noreferrer" class="mp-btn-ghost">Chat on WhatsApp <span>→</span></a>
+            </div>
+        </div>
+        <!-- Decorative hex -->
+        <div class="mp-cta-hex" aria-hidden="true">
+            <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="ctaHexGrad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#44008b" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#e54ed0" stop-opacity="0.15"/>
+                    </linearGradient>
+                </defs>
+                <polygon points="150,20 265,82.5 265,217.5 150,280 35,217.5 35,82.5" stroke="url(#ctaHexGrad)" stroke-width="1" fill="none"/>
+                <polygon points="150,50 240,100 240,200 150,250 60,200 60,100" stroke="url(#ctaHexGrad)" stroke-width="0.5" fill="none" opacity="0.5"/>
+                <polygon points="150,80 215,117.5 215,182.5 150,220 85,182.5 85,117.5" stroke="url(#ctaHexGrad)" stroke-width="0.5" fill="none" opacity="0.3"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="site-footer-inner">
+            <div class="site-footer-top">
+                <div class="site-footer-left">
+                    <a href="../index.html" class="site-footer-brand">
+                        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+                            <polygon points="30,5 53,18 53,42 30,55 7,42 7,18" fill="none" stroke="var(--c3)" stroke-width="2"/>
+                            <circle cx="30" cy="30" r="4" fill="var(--c1)"/>
+                        </svg>
+                        THE AI AGENCY
+                    </a>
+                    <p class="site-footer-desc">
+                        Empowering businesses with advanced AI tools, custom automation, and high-converting media to scale operations and revenue.
+                    </p>
+                    <div class="site-footer-socials">
+                        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.603 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+                        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.325V1.325C24 .593 23.407 0 22.675 0z"/></svg></a>
+                    </div>
+                    <button class="site-footer-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+                        BACK TO TOP
+                    </button>
+                </div>
+                <div class="site-footer-nav">
+                    <div class="site-footer-col">
+                        <h4>Site Map</h4>
+                        <ul>
+                            <li><a href="../index.html">Homepage</a></li>
+                            <li><a href="../index.html#services">Services</a></li>
+                            <li><a href="ai-automation.html">AI Automation</a></li>
+                            <li><a href="media-production.html">Media Production</a></li>
+                            <li><a href="performance-marketing.html">Performance Marketing</a></li>
+                            <li><a href="social-media.html">Social Media Management</a></li>
+                            <li><a href="medical-documentation.html">Medical Documentation</a></li>
+                        </ul>
+                    </div>
+                    <div class="site-footer-col">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="site-footer-bottom">
+                <p>Copyright © 2026, The AI Agency, All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/javascript/media-production.js" defer></script>
+    <script src="../assets/javascript/nav.js" defer></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
