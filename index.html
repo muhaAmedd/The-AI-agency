@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agency — Intelligence. Elevated.</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,400;0,9..40,600;1,9..40,300&family=Outfit:wght@400;600;700&display=optional"
+        rel="stylesheet">
+
+    <!-- Preload hero logo so it appears immediately -->
+    <link rel="preload" href="assets/Images/top logos/hero-logo.webp" as="image" type="image/webp">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+</head>
+
+<body>
+
+    <div id="cursor"></div>
+    <div id="cursor-ring">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="cursorGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#44008b" />
+                    <stop offset="100%" stop-color="#e54ed0" />
+                </linearGradient>
+            </defs>
+            <polygon class="cursor-hex-outer" points="30,5 53,18 53,42 30,55 7,42 7,18" fill="none"
+                stroke="url(#cursorGrad)" stroke-width="1.5" />
+            <polygon class="cursor-hex-inner" points="30,12 45,21 45,39 30,48 15,39 15,21" fill="none"
+                stroke="url(#cursorGrad)" stroke-width="1" opacity="0.6" />
+        </svg>
+    </div>
+
+    <div id="loader">
+        <div id="loader-back" aria-hidden="true"></div>
+        <div id="loader-front">
+            <div id="loader-hex">
+                <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="hexGrad" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#44008b" />
+                            <stop offset="50%" stop-color="#9f45b0" />
+                            <stop offset="100%" stop-color="#e54ed0" />
+                        </linearGradient>
+                    </defs>
+                    <polygon class="hex-path-glow" points="40,4 72,22 72,58 40,76 8,58 8,22" />
+                    <polygon class="hex-path" points="40,4 72,22 72,58 40,76 8,58 8,22" />
+                </svg>
+            </div>
+            <div id="loader-label">THE AI AGENCY</div>
+            <div id="loader-bar-wrap">
+                <div id="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="match-overlay">
+        <svg id="match-hex-svg" viewBox="-50 -50 100 100" preserveAspectRatio="xMidYMid slice"
+            xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <clipPath id="hexClip">
+                    <polygon id="clip-hex" points="0,-46 39.8,-23 39.8,23 0,46 -39.8,23 -39.8,-23" />
+                </clipPath>
+                <linearGradient id="mgGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#44008b" />
+                    <stop offset="100%" stop-color="#e54ed0" />
+                </linearGradient>
+            </defs>
+            <rect x="-50" y="-50" width="100" height="100" fill="#000510" />
+            <polygon id="hex-window" points="0,-46 39.8,-23 39.8,23 0,46 -39.8,23 -39.8,-23" fill="#000510"
+                clip-path="url(#hexClip)" />
+            <polygon id="hex-glow" points="0,-46 39.8,-23 39.8,23 0,46 -39.8,23 -39.8,-23" fill="none"
+                stroke="url(#mgGrad)" stroke-width="0.8" opacity="0" />
+        </svg>
+    </div>
+
+    <div id="noise"></div>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div id="ui">
+
+        <header id="site-header">
+            <div class="brand">
+                <div class="brand-logo">
+                    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#44008b" />
+                                <stop offset="100%" stop-color="#e54ed0" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Outer Hexagon -->
+                        <polygon points="30,5 53,18 53,42 30,55 7,42 7,18" fill="none" stroke="url(#lg1)"
+                            stroke-width="1.5" />
+                        <!-- Inner Hexagon -->
+                        <polygon points="30,12 45,21 45,39 30,48 15,39 15,21" fill="none" stroke="url(#lg1)"
+                            stroke-width="1" opacity="0.6" />
+                        <!-- Center Core -->
+                        <circle cx="30" cy="30" r="3" fill="#e54ed0" />
+                    </svg>
+                </div>
+                <div class="brand-name">THE AI AGENCY</div>
+            </div>
+            <nav>
+                <a href="#who-we-are">Who We Are</a>
+                <a href="#reels">Work</a>
+                <div class="nav-dropdown">
+                    <a href="#services" class="nav-dropdown-toggle">Services <span class="nav-arrow">▼</span></a>
+                    <div class="nav-dropdown-menu">
+                        <a href="Pages/media-production.html">Media Production</a>
+                        <a href="Pages/performance-marketing.html">Performance Marketing</a>
+                        <a href="Pages/social-media.html">Content Creation & Moderation</a>
+                        <a href="Pages/ai-automation.html">AI Automation</a>
+                        <a href="Pages/medical-documentation.html">Medical Documentation</a>
+                    </div>
+                </div>
+                <a href="#contact" class="nav-cta">Contact</a>
+            </nav>
+        </header>
+
+        <section class="hero" id="hero">
+            <div id="light-sweep"></div>
+
+            <div class="hero-inner">
+                <h1 id="hero-h1">
+                    <span class="line-plain hero-l1">INSIGHT. </span>
+                    <span class="line-out hero-l2">SCALE.</span>
+                    <span class="line-grad hero-l3">SUPREMACY.</span>
+                </h1>
+
+                <div id="hero-rest">
+                    <div class="hero-eyebrow">PERFORMANCE MARKETING FOR MODERN CLINICS</div>
+                    <p class="hero-sub"></p>
+                    <div class="hero-actions">
+                        <a href="#services" class="btn-primary" style="text-decoration:none;">View Our Work</a>
+                        <a href="#reels" class="btn-ghost" style="text-decoration:none;">Watch Reel <span>→</span></a>
+                    </div>
+
+                    <div class="stats-bar">
+                        <div class="stat">
+                            <div class="stat-num">7+</div>
+                            <div class="stat-label">Years Active</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-num">80+</div>
+                            <div class="stat-label">Brands Elevated</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-num">3x</div>
+                            <div class="stat-label">Avg. ROI</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-num">MENA</div>
+                            <div class="stat-label">Regional Reach</div>
+                            <p class="stat-desc">Medical &amp; luxury brands positioned as icons of trust across the
+                                MENA region.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="depth-spacer"></div>
+
+        <section class="who-section" id="who-we-are">
+            <div class="who-inner">
+                <div class="who-content-left">
+                    <div class="section-eyebrow">The AI Agency</div>
+                    <h2 class="section-title">Who<br>We Are</h2>
+                </div>
+                <div class="who-content-right">
+                    <div class="who-main-text">
+                        At The AI Agency, we don't just create content — <span>we boost growth</span> for aesthetic
+                        doctors and medical brands across the MENA region with 7+ Years in the market since 2019.
+                    </div>
+                    <div class="who-sub-text">
+                        <p>We specialize in performance-based digital marketing, media production, and branding,
+                            customized for each client's goals.</p>
+                        <p>Rooted in deep market understanding and bold creative strategy, we position our clients as
+                            icons in beauty, skin health, and innovation.</p>
+                        <div class="who-highlight-box">
+                            <p>Our work is defined by elegance, trust, and conversion.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="logos-section" id="top-logos">
+            <div class="logos-title">Trusted By Industry Leaders</div>
+            <div class="logos-carousel-wrap">
+                <div class="logos-track">
+                    <!-- Original set -->
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_40mw8v40mw8v40mw-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_6tsuq96tsuq96tsu-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_at5mwiat5mwiat5m-Photoroom (1).webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_aykew8aykew8ayke-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_co3ddtco3ddtco3d-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_daunvgdaunvgdaun-Photoroom (1).webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_i1m2xdi1m2xdi1m2-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_jbkg69jbkg69jbkg-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_jcwzpbjcwzpbjcwz-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_jcz3kyjcz3kyjcz3-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_jx8qz2jx8qz2jx8q-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_p66pevp66pevp66p-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_uraci8uraci8urac-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_yxy6xcyxy6xcyxy6-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img src="assets/Images/top logos/image-Photoroom.webp" alt="Client Logo">
+                    </div>
+                    <!-- Duplicated set for infinite seamless scroll -->
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_40mw8v40mw8v40mw-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_6tsuq96tsuq96tsu-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_at5mwiat5mwiat5m-Photoroom (1).webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_aykew8aykew8ayke-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_co3ddtco3ddtco3d-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_daunvgdaunvgdaun-Photoroom (1).webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_i1m2xdi1m2xdi1m2-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_jbkg69jbkg69jbkg-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_jcwzpbjcwzpbjcwz-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_jcz3kyjcz3kyjcz3-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_jx8qz2jx8qz2jx8q-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_p66pevp66pevp66p-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_uraci8uraci8urac-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img
+                            src="assets/Images/top logos/Gemini_Generated_Image_yxy6xcyxy6xcyxy6-Photoroom.webp"
+                            alt="Client Logo"></div>
+                    <div class="logo-item"><img src="assets/Images/top logos/image-Photoroom.webp" alt="Client Logo">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="depth-spacer"></div>
+
+        <section class="services-section" id="services">
+            <div class="services-top-row">
+                <div class="services-eyebrow-centered">Our Capabilities</div>
+                <h2 class="section-title services-main-title">What We Do</h2>
+                <div class="services-title-divider"></div>
+                <p class="services-top-desc">We deliver precision-crafted solutions across every dimension of your brand
+                    — from cinematic production to intelligent automation.</p>
+            </div>
+
+            <div class="services-layout">
+                <!-- FEATURED: Media Production -->
+                <div class="svc-card svc-card--featured" id="svc-1">
+                    <div class="svc-card-img"><img src="assets/Images/Services/media_prdocution_ph.webp"
+                            alt="Media Production" loading="lazy" width="800" height="600"></div>
+                    <div class="svc-card-bg-num">01</div>
+                    <div class="svc-card-content">
+                        <div class="svc-card-index">01</div>
+                        <h3 class="svc-card-title">Media Production</h3>
+                        <p class="svc-card-desc">Cinematic-grade video and photo production that transforms your brand
+                            into a visual icon — commanding attention across every platform.</p>
+                        <a href="Pages/media-production.html" class="svc-cta">Explore Service <span
+                                class="svc-cta-arrow">→</span></a>
+                    </div>
+                </div>
+
+                <!-- Performance Marketing -->
+                <div class="svc-card" id="svc-2">
+                    <div class="svc-card-img"><img src="assets/Images/Services/Performance_marketing_ph.webp"
+                            alt="Performance Marketing" loading="lazy" width="800" height="600"></div>
+                    <div class="svc-card-bg-num">02</div>
+                    <div class="svc-card-content">
+                        <div class="svc-card-index">02</div>
+                        <h3 class="svc-card-title">Performance Marketing</h3>
+                        <p class="svc-card-desc">Data-driven, precision-targeted campaigns engineered to dominate your
+                            market and aggressively multiply your ROI.</p>
+                        <a href="Pages/performance-marketing.html" class="svc-cta">Explore Service <span
+                                class="svc-cta-arrow">→</span></a>
+                    </div>
+                </div>
+
+                <!-- Content Creation & Moderation -->
+                <div class="svc-card" id="svc-3">
+                    <div class="svc-card-img"><img src="assets/Images/Services/content_creat&moderation_ph.webp"
+                            alt="Content Creation & Moderation" loading="lazy" width="800" height="600"></div>
+                    <div class="svc-card-bg-num">03</div>
+                    <div class="svc-card-content">
+                        <div class="svc-card-index">03</div>
+                        <h3 class="svc-card-title">Content Creation &amp; Moderation</h3>
+                        <p class="svc-card-desc">Scroll-stopping content crafted for elite clinics — paired with
+                            proactive community management that builds unbreakable trust.</p>
+                        <a href="Pages/social-media.html" class="svc-cta">Explore Service <span
+                                class="svc-cta-arrow">→</span></a>
+                    </div>
+                </div>
+
+                <!-- AI Automation + Medical Documentation (wide row) -->
+                <div class="svc-card svc-card--wide" id="svc-4">
+                    <div class="svc-card-img"><img src="assets/Images/Services/Ai_automation_ph.webp"
+                            alt="AI Automation" loading="lazy" width="800" height="600">
+                    </div>
+                    <div class="svc-card-bg-num">04</div>
+                    <div class="svc-card-content">
+                        <div class="svc-card-index">04</div>
+                        <h3 class="svc-card-title">AI Automation</h3>
+                        <p class="svc-card-desc">Streamline every patient touchpoint — 24/7 lead qualification,
+                            intelligent follow-ups, and seamless operational workflows powered by AI.</p>
+                        <a href="Pages/ai-automation.html" class="svc-cta">Explore Service <span
+                                class="svc-cta-arrow">→</span></a>
+                    </div>
+                </div>
+
+                <div class="svc-card svc-card--wide" id="svc-5">
+                    <div class="svc-card-img"><img src="assets/Images/Services/medical_documentation_ph.webp"
+                            alt="Medical Documentation" loading="lazy" width="800" height="600"></div>
+                    <div class="svc-card-bg-num">05</div>
+                    <div class="svc-card-content">
+                        <div class="svc-card-index">05</div>
+                        <h3 class="svc-card-title">Medical Documentation</h3>
+                        <p class="svc-card-desc">Accurate, compliant, and highly professional documentation services —
+                            built exclusively for elite aesthetic and medical practices.</p>
+                        <a href="Pages/medical-documentation.html" class="svc-cta">Explore Service <span
+                                class="svc-cta-arrow">→</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="depth-spacer"></div>
+
+        <section class="reels-section" id="reels">
+            <div class="reels-sticky-viewport">
+                <!-- Section header (left side) -->
+                <div class="reels-header">
+                    <div class="section-eyebrow">Featured Work</div>
+                    <h2 class="section-title">The<br>Reels</h2>
+                    <p class="reels-intro">Explore our cinematic portfolio.</p>
+                </div>
+
+                <!-- Depth tunnel -->
+                <div class="reels-tunnel">
+                    <!-- Reel 0 — video RIGHT, text LEFT -->
+                    <div class="reel-card" data-reel="0">
+                        <div class="reel-card-inner">
+                            <div class="reel-video-wrap">
+                                <video data-src="assets/videos/aerolase.mp4" preload="none" muted playsinline
+                                    controls></video>
+                            </div>
+                            <div class="reel-details">
+                                <div class="reel-counter">01 / 04</div>
+                                <h3 class="reel-title">Aerolase</h3>
+                                <p class="reel-desc">Cinematic brand storytelling for a leading aesthetic laser
+                                    technology — designed to captivate and convert.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Reel 1 -->
+                    <div class="reel-card" data-reel="1">
+                        <div class="reel-card-inner">
+                            <div class="reel-video-wrap">
+                                <video data-src="assets/videos/tawoos.mp4" preload="none" muted playsinline
+                                    controls></video>
+                            </div>
+                            <div class="reel-details">
+                                <div class="reel-counter">02 / 04</div>
+                                <h3 class="reel-title">Tawoos</h3>
+                                <p class="reel-desc">Luxury real estate media production — elevating premium properties
+                                    through immersive visual narratives.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Reel 2 — video RIGHT, text LEFT -->
+                    <div class="reel-card" data-reel="2">
+                        <div class="reel-card-inner">
+                            <div class="reel-video-wrap">
+                                <video data-src="assets/videos/video3.mp4" preload="none" muted playsinline
+                                    controls></video>
+                            </div>
+                            <div class="reel-details">
+                                <div class="reel-counter">03 / 04</div>
+                                <h3 class="reel-title">Clinic Reel</h3>
+                                <p class="reel-desc">Performance-driven content for medical aesthetics — where clinical
+                                    precision meets creative excellence.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Reel 3 -->
+                    <div class="reel-card" data-reel="3">
+                        <div class="reel-card-inner">
+                            <div class="reel-video-wrap">
+                                <video data-src="assets/videos/video4.mp4" preload="none" muted playsinline
+                                    controls></video>
+                            </div>
+                            <div class="reel-details">
+                                <div class="reel-counter">04 / 04</div>
+                                <h3 class="reel-title">Brand Film</h3>
+                                <p class="reel-desc">Full-spectrum brand film production — from concept to final cut,
+                                    engineered for maximum emotional impact.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Navigation Arrows -->
+                <div class="reels-nav-arrows">
+                    <button id="reel-prev" class="reel-nav-btn" aria-label="Previous Reel">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                    </button>
+                    <button id="reel-next" class="reel-nav-btn" aria-label="Next Reel">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <div class="depth-spacer"></div>
+
+        <!-- —"?—"? MEET THE TEAM SECTION —"?—"? -->
+        <section class="team-section" id="meet-the-team">
+            <div class="team-header">
+                <div class="services-eyebrow-centered">The Minds Behind The Agency</div>
+                <h2 class="team-title">
+                    Meet The<br>
+                    <span class="team-title-grad">Team</span>
+                </h2>
+            </div>
+
+            <div class="ts-wrap" id="ts-wrap">
+                <!-- 01 Amr Gamal — bold: slams in from left -->
+                <div class="ts-slide ts-active" data-vibe="bold" data-accent="#b3a98d">
+                    <div class="ts-photo"><img id="amr-photo" src="assets/Images/team/amr-gamal.webp" alt="Amr Gamal"
+                            loading="lazy" width="600" height="750">
+                        <div class="ts-overlay"></div>
+                    </div>
+                    <div class="ts-info">
+                        <span class="ts-num">01 <em>/ 06</em></span>
+                        <h3 class="ts-name">AMR<br>GAMAL</h3>
+                        <div class="ts-rule"><span class="ts-rule-line"></span><span class="ts-role">Marketing
+                                Director</span></div>
+                        <p class="ts-bio">The strategic force behind every campaign — turning vision into measurable
+                            growth across the MENA region.</p>
+                    </div>
+                </div>
+
+                <!-- 02 Abdelrahman — clean: blur fade from above -->
+                <div class="ts-slide" data-vibe="clean" data-accent="#cac5c1">
+                    <div class="ts-photo"><img src="assets/Images/team/Abdelrahman.webp" alt="Abdelrahman"
+                            loading="lazy" width="600" height="750">
+                        <div class="ts-overlay"></div>
+                    </div>
+                    <div class="ts-info">
+                        <span class="ts-num">02 <em>/ 06</em></span>
+                        <h3 class="ts-name">ABDEL-<br>RAHMAN</h3>
+                        <div class="ts-rule"><span class="ts-rule-line"></span><span class="ts-role">Account
+                                Manager</span></div>
+                        <p class="ts-bio">The bridge between client ambition and agency execution — precise, proactive,
+                            and relentlessly reliable.</p>
+                    </div>
+                </div>
+
+                <!-- 03 Malak Sherif — creative: diagonal sweep + skew -->
+                <div class="ts-slide" data-vibe="creative" data-accent="#d4d4d4">
+                    <div class="ts-photo"><img src="assets/Images/team/Malak Sherif.webp" alt="Malak Sherif"
+                            loading="lazy" width="600" height="750">
+                        <div class="ts-overlay"></div>
+                    </div>
+                    <div class="ts-info">
+                        <span class="ts-num">03 <em>/ 06</em></span>
+                        <h3 class="ts-name">MALAK<br>SHERIF</h3>
+                        <div class="ts-rule"><span class="ts-rule-line"></span><span class="ts-role">Social Media
+                                Specialist</span></div>
+                        <p class="ts-bio">Crafting scroll-stopping narratives and communities that turn followers into
+                            loyal brand advocates.</p>
+                    </div>
+                </div>
+
+                <!-- 04 Mohamed Afifi — digital: glitch entrance -->
+                <div class="ts-slide" data-vibe="digital" data-accent="#9ca59e">
+                    <div class="ts-photo"><img src="assets/Images/team/Mohamed Afifi.webp" alt="Mohamed Afifi"
+                            loading="lazy" width="600" height="750">
+                        <div class="ts-overlay"></div>
+                    </div>
+                    <div class="ts-info">
+                        <span class="ts-num">04 <em>/ 06</em></span>
+                        <h3 class="ts-name">MOHAMED<br>AFIFI</h3>
+                        <div class="ts-rule"><span class="ts-rule-line"></span><span class="ts-role">AI Visual
+                                Artist</span></div>
+                        <p class="ts-bio">Where artificial intelligence meets human creativity — producing visuals that
+                            feel impossible yet undeniably real.</p>
+                    </div>
+                </div>
+
+                <!-- 05 Abdullah Negm — geometric: expand from center clip -->
+                <div class="ts-slide" data-vibe="geometric" data-accent="#e5973d">
+                    <div class="ts-photo"><img src="assets/Images/team/Abdullah-negm.webp" alt="Abdullah Negm"
+                            loading="lazy" width="600" height="750">
+                        <div class="ts-overlay"></div>
+                    </div>
+                    <div class="ts-info">
+                        <span class="ts-num">05 <em>/ 06</em></span>
+                        <h3 class="ts-name">ABDULLAH<br>NEGM</h3>
+                        <div class="ts-rule"><span class="ts-rule-line"></span><span class="ts-role">Strategic Creative
+                                Designer</span></div>
+                        <p class="ts-bio">Design with purpose — visual systems that don't just look premium but drive
+                            emotion and conversion.</p>
+                    </div>
+                </div>
+
+                <!-- 06 Bahaa El Din — structured: curtain drop -->
+                <div class="ts-slide" data-vibe="structured" data-accent="#c0aa62">
+                    <div class="ts-photo"><img src="assets/Images/team/Bahaa-Eldin.webp" alt="Bahaa El Din"
+                            loading="lazy" width="600" height="750">
+                        <div class="ts-overlay"></div>
+                    </div>
+                    <div class="ts-info">
+                        <span class="ts-num">06 <em>/ 06</em></span>
+                        <h3 class="ts-name">BAHAA<br>EL DIN</h3>
+                        <div class="ts-rule"><span class="ts-rule-line"></span><span class="ts-role">Logistics &amp;
+                                Operation</span></div>
+                        <p class="ts-bio">The backbone of every delivery — ensuring every project runs with precision,
+                            on time, and beyond expectations.</p>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="ts-nav">
+                    <button class="ts-arrow ts-prev" id="ts-prev" aria-label="Previous">
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="19.5" stroke="currentColor" stroke-opacity="0.4" />
+                            <path d="M23 13L16 20L23 27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <div class="ts-dots" id="ts-dots">
+                        <button class="ts-dot ts-dot-active" data-goto="0"></button>
+                        <button class="ts-dot" data-goto="1"></button>
+                        <button class="ts-dot" data-goto="2"></button>
+                        <button class="ts-dot" data-goto="3"></button>
+                        <button class="ts-dot" data-goto="4"></button>
+                        <button class="ts-dot" data-goto="5"></button>
+                    </div>
+                    <button class="ts-arrow ts-next" id="ts-next" aria-label="Next">
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="19.5" stroke="currentColor" stroke-opacity="0.4" />
+                            <path d="M17 13L24 20L17 27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </nav>
+
+            </div>
+        </section>
+
+        <div class="depth-spacer"></div>
+
+        <!-- —"?—"? CONTACT SECTION —"?—"? -->
+        <section class="contact-section" id="contact">
+
+            <!-- Background decorative hex -->
+            <div class="contact-bg-hex" aria-hidden="true">
+                <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="hexGradContact" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#44008b" stop-opacity="0.3" />
+                            <stop offset="100%" stop-color="#e54ed0" stop-opacity="0.08" />
+                        </linearGradient>
+                    </defs>
+                    <polygon points="200,20 360,110 360,290 200,380 40,290 40,110" fill="none"
+                        stroke="url(#hexGradContact)" stroke-width="1.5" />
+                    <polygon points="200,60 330,130 330,270 200,340 70,270 70,130" fill="none"
+                        stroke="url(#hexGradContact)" stroke-width="0.8" opacity="0.5" />
+                    <polygon points="200,100 300,155 300,245 200,300 100,245 100,155" fill="none"
+                        stroke="url(#hexGradContact)" stroke-width="0.5" opacity="0.25" />
+                </svg>
+            </div>
+
+            <div class="contact-inner">
+
+                <!-- Left: header copy -->
+                <div class="contact-left">
+                    <div class="services-eyebrow-centered contact-eyebrow">Get In Touch</div>
+                    <h2 class="contact-title">
+                        Let's Build<br>
+                        <span class="contact-title-grad">Something Great</span>
+                    </h2>
+                    <p class="contact-desc">
+                        Whether you're a clinic, a luxury brand, or a business ready to scale —
+                        tell us your vision and we'll map the path to your next chapter.
+                    </p>
+
+                    <div class="contact-info-list">
+                        <div class="contact-info-item">
+                            <span class="contact-info-icon">✦</span>
+                            <span>MENA Region · Available Globally</span>
+                        </div>
+                        <div class="contact-info-item">
+                            <span class="contact-info-icon">✦</span>
+                            <span>Response within 24 hours</span>
+                        </div>
+                        <div class="contact-info-item">
+                            <span class="contact-info-icon">✦</span>
+                            <span>Free strategy consultation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: form -->
+                <div class="contact-right">
+                    <form class="contact-form" id="contact-form" novalidate>
+
+                        <!-- Row 1: Full Name + Company -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cf-name">Full Name <span class="req">*</span></label>
+                                <input type="text" id="cf-name" name="full_name" placeholder="John Doe" required
+                                    autocomplete="name">
+                                <span class="field-line"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="cf-company">Company Name <span class="opt">(optional)</span></label>
+                                <input type="text" id="cf-company" name="company" placeholder="Your Brand / Clinic"
+                                    autocomplete="organization">
+                                <span class="field-line"></span>
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Phone + Email -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cf-phone">Phone Number <span class="req">*</span></label>
+                                <input type="tel" id="cf-phone" name="phone" placeholder="+20 100 000 0000" required
+                                    autocomplete="tel">
+                                <span class="field-line"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="cf-email">Gmail / Email <span class="req">*</span></label>
+                                <input type="email" id="cf-email" name="email" placeholder="you@gmail.com" required
+                                    autocomplete="email">
+                                <span class="field-line"></span>
+                            </div>
+                        </div>
+
+                        <!-- Row 3: Subject (full width) -->
+                        <div class="form-row">
+                            <div class="form-group form-group--full">
+                                <label for="cf-subject">Subject <span class="req">*</span></label>
+                                <div class="select-wrap">
+                                    <select id="cf-subject" name="subject" required>
+                                        <option value="" disabled selected>Select a subject...</option>
+                                        <option value="media">Media Production</option>
+                                        <option value="marketing">Performance Marketing</option>
+                                        <option value="content">Content Creation & Moderation</option>
+                                        <option value="ai">AI Automation</option>
+                                        <option value="docs">Medical Documentation</option>
+                                        <option value="other">Other / General Inquiry</option>
+                                    </select>
+                                    <span class="select-arrow">▼</span>
+                                </div>
+                                <span class="field-line"></span>
+                            </div>
+                        </div>
+
+                        <!-- Row 4: Message (full width) -->
+                        <div class="form-row">
+                            <div class="form-group form-group--full">
+                                <label for="cf-message">How Can We Serve You? <span class="req">*</span></label>
+                                <textarea id="cf-message" name="message" rows="5"
+                                    placeholder="Tell us about your goals, current challenges, and what success looks like for you..."
+                                    required></textarea>
+                                <span class="field-line"></span>
+                            </div>
+                        </div>
+
+                        <!-- Honeypot anti-spam (hidden from real users) -->
+                        <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
+                            <input type="text" name="website" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="form-submit-row">
+                            <button type="submit" class="contact-submit" id="cf-submit">
+                                <span class="submit-text">Send Message</span>
+                                <span class="submit-arrow">→</span>
+                                <span class="submit-glow"></span>
+                            </button>
+                            <p class="form-note">We respect your privacy. No spam, ever.</p>
+                        </div>
+
+                        <!-- Success / Error feedback -->
+                        <div class="form-feedback" id="cf-feedback" aria-live="polite"></div>
+
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+            <div class="site-footer-inner">
+                <div class="site-footer-top">
+                    <div class="site-footer-left">
+                        <a href="index.html" class="site-footer-brand">
+                            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+                                <polygon points="30,5 53,18 53,42 30,55 7,42 7,18" fill="none" stroke="var(--c3)"
+                                    stroke-width="2" />
+                                <circle cx="30" cy="30" r="4" fill="var(--c1)" />
+                            </svg>
+                            THE AI AGENCY
+                        </a>
+                        <p class="site-footer-desc">
+                            Empowering businesses with advanced AI tools, custom automation, and high-converting media
+                            to scale operations and revenue.
+                        </p>
+                        <button class="site-footer-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M18 15l-6-6-6 6" />
+                            </svg>
+                            BACK TO TOP
+                        </button>
+                    </div>
+                    <div class="site-footer-nav">
+                        <div class="site-footer-col">
+                            <h4>Site Map</h4>
+                            <ul>
+                                <li><a href="index.html">Homepage</a></li>
+                                <li><a href="index.html#services">Services</a></li>
+                                <li><a href="Pages/ai-automation.html">AI Automation</a></li>
+                                <li><a href="Pages/media-production.html">Media Production</a></li>
+                                <li><a href="Pages/performance-marketing.html">Performance Marketing</a></li>
+                                <li><a href="Pages/social-media.html">Social Media Management</a></li>
+                                <li><a href="Pages/medical-documentation.html">Medical Documentation</a></li>
+                            </ul>
+                        </div>
+                        <div class="site-footer-col">
+                            <h4>Get in touch with us</h4>
+                            <div class="site-footer-socials">
+                                <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path
+                                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                    </svg></a>
+                                <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path
+                                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.603 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                    </svg></a>
+                                <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path
+                                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                                    </svg></a>
+                                <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path
+                                            d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.325V1.325C24 .593 23.407 0 22.675 0z" />
+                                    </svg></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="site-footer-bottom">
+                    <p>Copyright © 2026, The AI Agency, All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="assets/javascript/script.js" defer></script>
+    <script src="assets/javascript/nav.js" defer></script>
+</body>
+
+
+</html>
